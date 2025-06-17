@@ -12,6 +12,8 @@ import com.javaex.vo.PersonVO;
 
 public class PhonebookDAO {
 
+	//DAO는 DB관련 일함
+	
 	//필드
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
@@ -125,7 +127,130 @@ public class PhonebookDAO {
 		return personList;
 	}
 	
+	//사람정보(주소) 등록
+	public int personInsert(PersonVO personVO) {
+		System.out.println(("personInsert"));
+		int count = -1;
+		this.connect();
+		
+		//3. SQL문 준비/ 바인딩/ 실행
+		
+		try {
+			//-SQL문 준비
+			String query =" insert into person ";
+			query += " values(null, ?, ?, ?) ";
+			
+			//-바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, personVO.getName());
+			pstmt.setString(2, personVO.getHp());
+			pstmt.setString(3, personVO.getCompany());
+			
+			
+			//-실행
+			count = pstmt.executeUpdate();
+			
+			//4. 결과처리
+			System.out.println(count + " 건이 저장되었습니다.");
+			
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		
+		}
+		
+		this.close();
+		return count;
+	}
 	
+	
+	//사람정보(주소) 삭제
+	public int personDelete(int no) {
+		System.out.println("personDelete");
+		
+		
+		int count = -1;
+		this.connect();
+		
+		try {
+			//-SQL문 준비
+			String query =" delete from  person ";
+			query += " where person_id = ? ";
+			
+			//-바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+
+			
+			//-실행
+			count = pstmt.executeUpdate();
+			
+			//4. 결과처리
+			System.out.println(count + " 건이 삭제되었습니다.");
+			
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		
+		}
+		
+		this.close();
+		
+		return count;
+		
+	}
+	
+	
+	//사람정보(주소) 수정
+	
+	public PersonVO getPersonOne (int no) {
+
+		// VO
+		PersonVO personVO = null;
+
+		// 0. import java.sql.*;
+
+		// 1. JDBC 드라이버 (MySQL) 로딩
+		// 2. Connection 얻어오기
+		this.connect();
+
+		try {
+
+			// 3. SQL문 준비 / 바인딩 / 실행
+			// SQL문 준비
+			String query = "";
+			query += " select	person_id, ";
+			query += "          name, ";
+			query += "          hp, ";
+			query += "        company ";
+			query += " from person ";
+			query += " where person_id = ? ";
+
+			// 바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+
+			// 실행
+			rs = pstmt.executeQuery();
+
+			// 4.결과처리 (java 리스트로 만든다)
+			rs.next();
+
+			int personId = rs.getInt("person_id");
+			String name = rs.getString("name");
+			String hp = rs.getString("hp");
+			String company = rs.getString("company");
+
+			personVO = new PersonVO(personId, name, hp, company);
+
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		}
+
+		// 5. 자원정리
+		this.close();
+
+		return personVO;
+
+	}
 	
 	
 }

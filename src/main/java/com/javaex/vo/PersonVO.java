@@ -2,6 +2,8 @@ package com.javaex.vo;
 
 public class PersonVO {
 
+	//VO는 케이스
+	
 	//필드
 	private int personId;
 	private String name;
@@ -13,6 +15,16 @@ public class PersonVO {
 	public PersonVO() {
 		
 	}
+	
+	
+	public PersonVO(String name, String hp, String company) {
+
+		this.name = name;
+		this.hp = hp;
+		this.company = company;
+	}
+	
+	
 	
 	public PersonVO(int personId, String name, String hp, String company) {
 
