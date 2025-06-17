@@ -155,7 +155,7 @@ public class PhonebookController extends HttpServlet {
 	         	PhonebookDAO phonebookDAO = new PhonebookDAO();
 			  	phonebookDAO.getPersonOne(no);  
 
-			    // request에 담아서 수정폼에 전달
+			    // request에 담아서 수정폼에 전달..?
 			    request.setAttribute("personList", no);
 
 			    // 포워딩
