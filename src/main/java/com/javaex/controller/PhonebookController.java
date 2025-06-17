@@ -147,17 +147,18 @@ public class PhonebookController extends HttpServlet {
 			
 		} else if("mform".equals(action)) {
 			System.out.println("수정폼");// 체크오케이
-			  	int no = Integer.parseInt(request.getParameter("no"));
-		
+			
+	         	int no = Integer.parseInt(request.getParameter("no"));
+			
 
 			    // DAO 호출 - 한 명 정보 가져오기
-			  	PhonebookDAO phonebookDAO = new PhonebookDAO();
-			  	PersonVO personVO = phonebookDAO.getPersonOne(no);  
+	         	PhonebookDAO phonebookDAO = new PhonebookDAO();
+			  	phonebookDAO.getPersonOne(no);  
 
 			    // request에 담아서 수정폼에 전달
-			    request.setAttribute("pList", personOne);
+			    request.setAttribute("personList", no);
 
-			    // 페이지 포워딩
+			    // 포워딩
 			    RequestDispatcher rd = request.getRequestDispatcher("/modifyForm.jsp");
 			    rd.forward(request, response);
 		        
