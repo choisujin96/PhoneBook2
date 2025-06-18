@@ -253,7 +253,7 @@ public class PhonebookDAO {
 
 	}
 	
-	//사람정보(주소) 삭제
+	//--수정
 	public int personUpdate(PersonVO personVO) {
 		System.out.println("personUpdate");
 		

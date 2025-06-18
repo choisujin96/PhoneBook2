@@ -35,15 +35,14 @@ public class PhonebookController extends HttpServlet {
 		String action = request.getParameter("action");
 		System.out.println(action); //업무구분
 		
-		
+
+		//리스트//////////////////////////////////////////////////////////////
 			//주소값이 null이어도 안전하게 비교할 수 있음(비교대상이 먼저 들어와야함)
 		if("list".equals(action)) {
 		//(action.equals("list")) 
 			System.out.println("리스트");// 여기까지 체크 후 뒤에 코드 짜기
 			
-		//리스트//////////////////////////////////////////////////////////////
-		
-		
+	
 		//데이터 가져온다 --> list
 		PhonebookDAO phonebookDAO = new PhonebookDAO();
 		List<PersonVO> personList = phonebookDAO.personSelect();
