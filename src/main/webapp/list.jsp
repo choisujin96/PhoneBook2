@@ -46,7 +46,7 @@
 					<td><%=personList.get(i).getCompany() %></td>
 				</tr>
 				<tr>
-					<td><a href="http://localhost:8080/phonebook2/pbc?action=mform&no=<%=personList.get(i).getPersonId() %>">[수정폼으로 이동]</td></a> <!-- 여기에 수정폼 주소 먹이기..? -->
+					<td><a href="http://localhost:8080/phonebook2/pbc?action=mform&no=<%=personList.get(i).getPersonId() %>">[수정]</td></a> <!-- 여기에 수정폼 주소 먹이기..? -->
 					<td><a href="http://localhost:8080/phonebook2/pbc?action=delete&no=<%=personList.get(i).getPersonId() %>">[삭제]</td></a>  <!--  원래 버튼으로 해야한다. js 필요 안배워서 a태그로 구횬-->
 				</tr>
 			

@@ -201,6 +201,7 @@ public class PhonebookDAO {
 	
 	//사람정보(주소) 수정
 	
+	//----- 한명꺼내오기
 	public PersonVO getPersonOne (int no) {
 
 		// VO
@@ -252,5 +253,45 @@ public class PhonebookDAO {
 
 	}
 	
-	
+	//사람정보(주소) 삭제
+	public int personUpdate(PersonVO personVO) {
+		System.out.println("personUpdate");
+		
+		
+		int count = -1;
+		this.connect();
+		
+		try {
+			//-SQL문 준비
+			String query =" update person ";
+			query += " set name = ? ";
+			query += " 	  ,hp = ? ";
+			query += "    ,company = ? ";
+			query += " where person_id = ? ";
+			
+			
+			//-바인딩
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, personVO.getName());
+			pstmt.setString(2, personVO.getHp());
+			pstmt.setString(3, personVO.getCompany());
+			pstmt.setInt(4, personVO.getPersonId());
+
+			
+			//-실행
+			count = pstmt.executeUpdate();
+			
+			//4. 결과처리
+			System.out.println(count + " 건이 수정되었습니다.");
+			
+		}catch (SQLException e) {
+			System.out.println("error:" + e);
+		
+		}
+		
+		this.close();
+		
+		return count;
+		
+	}
 }

@@ -55,7 +55,7 @@ public class PhonebookController extends HttpServlet {
 		//list.jsp에 후반일(데이터를전달) html을 만들고 응답문서를 만들어 보낸다.
 		//1)request 객체에 데이터를 넣어준다.
 		request.setAttribute("pList", personList); //문자열/주소
-		
+						//pList 이명칭으로 jsp에 넘기겠다	
 		//2)list.jsp에 request객체와 response객체를 보낸다
 		//**포워드** java와 html 문법 둘이 세트로 묶어서 전달하는 기술
 		RequestDispatcher rd = request.getRequestDispatcher("/list.jsp");
@@ -159,21 +159,36 @@ public class PhonebookController extends HttpServlet {
 	         	 System.out.println(personVO);
 	         	 //한명 정보부터 가져와보자. 
 	         	 
-			    // request에 담아서 수정폼에 전달..?
+	         	//1)request 객체에 데이터를 넣어준다.
 			    request.setAttribute("personVO", personVO);
 			
 
-			    // 포워딩
+			    // 포워드
 			    RequestDispatcher rd = request.getRequestDispatcher("/modifyForm.jsp");
 			    rd.forward(request, response);
 		        
 		}else if("modify".equals(action)) { //얘는 수정
 			System.out.println("수정");  //체크 ok
 			
+			//파라미터 3개 꺼내기
+			int no = Integer.parseInt(request.getParameter("no")); 
+			String name = request.getParameter("name");
+			String hp = request.getParameter("hp");
+			String company = request.getParameter("company");
 			
+	
+			
+			// 파라미터를 하나로 묶는다.
+			PersonVO personVO = new PersonVO(no, name, hp, company);
+			System.out.println(personVO);
+			
+			//DAO를 통해서 저장시키기
+			PhonebookDAO phonebookDAO = new PhonebookDAO();
+			phonebookDAO.personUpdate(personVO);
 		
 			
-		
+			//리다이렉트 list 요청해주세요
+			response.sendRedirect("http://localhost:8080/phonebook2/pbc?action=list");
 		
 		}
 	}
